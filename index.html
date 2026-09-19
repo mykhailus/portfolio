@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mykhailo Yatsenko — {ai creator}</title>
+<meta name="description" content="AI creator & video production artist. 15+ years in video, VFX and 3D. Clients: Sony Music, AT&T, Autodesk. AI video, generative content, crypto-native.">
+<meta property="og:title" content="Mykhailo Yatsenko — {ai creator}">
+<meta property="og:description" content="AI video & generative content. 15+ years in production. Sony Music, AT&T, Autodesk. 195M views on my most-watched work.">
+<meta property="og:image" content="photo.jpg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#090a0a;
+  --bg-soft:#101111;
+  --card:#101111;
+  --paper:#f2f0e9;
+  --paper-soft:#e9e6dc;
+  --ink:#111210;
+  --line:rgba(242,240,233,.16);
+  --line-soft:rgba(242,240,233,.08);
+  --text:#f2f0e9;
+  --muted:#969995;
+  --red:#ff3b30;
+  --red-deep:#b82032;
+  --mono:'JetBrains Mono','SFMono-Regular',Consolas,'Liberation Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;overflow-x:hidden;padding-top:64px}
+a{color:var(--red);text-decoration:none}
+a:hover{color:#ff6b62}
+img{max-width:100%}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+section{padding:84px 0;position:relative}
+
+/* grain */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:98;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")}
+
+/* page-wide dot cloud */
+#dots{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:97}
+
+/* fixed header + progress */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:0 24px;height:62px;background:rgba(9,10,10,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.topbar b{color:var(--text)}
+.topbar .tg{display:inline-flex;align-items:center;gap:8px;background:var(--red);color:#0a0a0a;font-weight:700;padding:9px 16px;letter-spacing:.1em;transition:.18s}
+.topbar .tg:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(242,240,233,.25);color:#0a0a0a}
+#progress{position:fixed;top:62px;left:0;height:2px;background:var(--red);width:0;z-index:101;transition:width .1s linear}
+
+.kicker{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--red);margin-bottom:16px}
+.kicker::before{content:"● ";font-size:.6rem;vertical-align:2px}
+h1,h2,h3{font-weight:800;line-height:1.12;letter-spacing:-.01em}
+h2{font-size:clamp(1.5rem,3.4vw,2.3rem);margin-bottom:38px}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.rv.on{opacity:1;transform:none}
+
+/* hero */
+.hero{padding:84px 0 70px;position:relative}
+.hero-grid{display:grid;grid-template-columns:1fr 330px;gap:64px;align-items:center;position:relative}
+.hero h1{font-size:clamp(2.1rem,5.2vw,3.4rem)}
+.hero h1 .accent{color:var(--red)}
+.tagline{font-size:.98rem;color:var(--muted);max-width:600px;margin:22px 0 30px}
+.tagline b{color:var(--text);font-weight:700}
+.contacts{display:flex;flex-wrap:wrap;gap:12px}
+.chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);padding:11px 20px;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text);background:transparent;transition:.18s;font-family:var(--mono)}
+.chip:hover{border-color:var(--red);color:var(--red);transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--red-deep)}
+.chip.primary{background:var(--red);border-color:var(--red);color:#0a0a0a;font-weight:700;box-shadow:4px 4px 0 rgba(242,240,233,.18)}
+.chip.primary:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 rgba(242,240,233,.25);color:#0a0a0a}
+
+/* polaroid */
+.polaroid{background:var(--paper);padding:12px 12px 14px;transform:rotate(2.4deg);transition:transform .35s ease;box-shadow:0 24px 60px rgba(0,0,0,.55)}
+.polaroid:hover{transform:rotate(0deg) scale(1.02)}
+.polaroid .ph{position:relative}
+.polaroid .ph::after{content:"";position:absolute;inset:-7px;border:1px solid rgba(17,18,16,.55);transition:inset .35s ease;pointer-events:none}
+.polaroid:hover .ph::after{inset:6px}
+.polaroid img{display:block;width:100%;filter:grayscale(1) contrast(1.06);transition:filter .4s ease}
+.polaroid:hover img{filter:grayscale(0) contrast(1)}
+.polaroid .cap{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#111;padding-top:10px}
+
+/* stats */
+.stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-soft);padding:0}
+.stats-grid{display:grid;grid-template-columns:repeat(5,1fr)}
+.stat{padding:34px 20px;border-left:1px solid var(--line-soft)}
+.stat:first-child{border-left:0}
+.stat b{display:block;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;color:var(--text)}
+.stat b span{display:inline;font-size:inherit;letter-spacing:inherit;text-transform:none;color:inherit;margin:0}
+.stat > span{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-top:6px}
+
+/* marquee */
+.marquee{overflow:hidden;border-bottom:1px solid var(--line-soft);padding:14px 0;white-space:nowrap;background:var(--bg)}
+.marquee-track{display:inline-flex;animation:mq 40s linear infinite}
+.marquee-track .half{display:inline-block;font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.marquee-track .r{color:var(--red)}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* light sections */
+.light{background:var(--paper);color:var(--ink)}
+.light h2,.light h3{color:var(--ink)}
+.light .kicker{color:var(--red-deep)}
+.light p{color:#4c4e49}
+.light a{color:var(--red-deep)}
+.light a:hover{color:var(--red)}
+
+/* scattered x posts */
+.x-scatter{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:52px;align-items:start;width:calc(100vw - 48px);margin-left:calc(50% - 50vw + 24px)}
+@media(max-width:1500px){.x-scatter{grid-template-columns:repeat(3,1fr)}}
+.x-item{transition:transform .3s ease;position:relative}
+.x-item:nth-child(5n+1){transform:rotate(-1.6deg)}
+.x-item:nth-child(5n+2){transform:rotate(1.4deg) translateY(18px)}
+.x-item:nth-child(5n+3){transform:rotate(-0.8deg) translateY(6px)}
+.x-item:nth-child(5n+4){transform:rotate(1.8deg) translateY(10px)}
+.x-item:nth-child(5n){transform:rotate(-1.2deg) translateY(20px)}
+.x-item:hover{transform:rotate(0) scale(1.045);z-index:5}
+
+/* rows */
+.rows .row{display:flex;justify-content:space-between;gap:26px;align-items:baseline;padding:22px 0;border-bottom:1px solid var(--line-soft);transition:.18s}
+.rows .row:first-child{border-top:1px solid var(--line-soft)}
+.rows .row:hover{border-bottom-color:var(--red)}
+.row h3{font-size:.95rem;font-weight:700;letter-spacing:.02em;text-transform:uppercase}
+.row h3 a::after{content:" ↗";font-size:.8em}
+.row p{font-size:.85rem;color:var(--muted);margin-top:6px;max-width:640px}
+.row .right{white-space:nowrap;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+
+/* video cards (light section) */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;width:calc(100vw - 48px);margin-left:calc(50% - 50vw + 24px)}
+@media(max-width:1150px){.grid{grid-template-columns:repeat(2,1fr)}}
+.card{background:#fbfaf6;border:1px solid rgba(17,18,16,.16);overflow:hidden;display:flex;flex-direction:column;transition:.18s}
+.card:hover{border-color:var(--red-deep);transform:translateY(-3px);box-shadow:0 16px 40px rgba(17,18,16,.12)}
+.yt{position:relative;aspect-ratio:16/9;background:#000;cursor:pointer;overflow:hidden}
+.yt img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(.35) contrast(1.05);transition:.3s}
+.yt:hover img{filter:grayscale(0)}
+.yt .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.yt .play i{width:64px;height:64px;background:var(--red);display:flex;align-items:center;justify-content:center;transition:.2s}
+.yt:hover .play i{transform:scale(1.1)}
+.yt .play i::after{content:"";border-left:16px solid #0a0a0a;border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:4px}
+.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.card .body{padding:18px 20px 20px}
+.badge{display:inline-block;border:1px solid var(--red-deep);color:var(--red-deep);padding:2px 10px;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+.card h3{font-size:.95rem;margin-bottom:6px;text-transform:uppercase;letter-spacing:.02em}
+.card p{font-size:.83rem;color:#4c4e49}
+
+/* nft cards */
+.nftblock{border-bottom:1px solid var(--line-soft);padding-bottom:36px;transition:border-color .18s}
+.nftblock:hover{border-bottom-color:var(--red)}
+.nftgrid{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin:30px 0 14px}
+.nftgrid .shot img{aspect-ratio:auto}
+@media(max-width:700px){.nftgrid{grid-template-columns:1fr}}
+.rows.noline .row,.rows.noline .row:first-child{border-top:none;border-bottom:none}
+
+/* crypto collage */
+.collage{display:grid;grid-template-columns:repeat(5,1fr);gap:26px;margin-top:52px;width:calc(100vw - 48px);margin-left:calc(50% - 50vw + 24px)}
+@media(max-width:1500px){.collage{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:1150px){.collage{grid-template-columns:repeat(3,1fr)}}
+.shot{display:block;background:var(--paper);padding:10px 10px 12px;color:var(--ink);transition:transform .3s ease,box-shadow .3s ease;box-shadow:0 14px 36px rgba(0,0,0,.45);position:relative}
+.shot:nth-child(3n+1){transform:rotate(-2deg)}
+.shot:nth-child(3n+2){transform:rotate(1.6deg) translateY(14px)}
+.shot:nth-child(3n){transform:rotate(-1deg) translateY(4px)}
+.shot:hover{transform:rotate(0) scale(1.04);z-index:3;box-shadow:0 26px 60px rgba(0,0,0,.6)}
+.shot img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;filter:grayscale(1) contrast(1.05);transition:filter .3s ease}
+.shot:hover img{filter:grayscale(0)}
+.shot .t{font-size:.72rem;letter-spacing:.04em;padding:10px 4px 0;color:var(--ink);line-height:1.45;text-transform:uppercase;font-weight:700}
+.shot .m{font-size:.66rem;color:var(--red-deep);padding:2px 4px 0;letter-spacing:.12em;text-transform:uppercase}
+
+/* toolbox */
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.tool-col{background:#fbfaf6;border:1px solid rgba(17,18,16,.16);padding:26px 28px}
+.tool-col h3{font-size:.78rem;color:var(--red-deep);margin-bottom:18px;letter-spacing:.2em;text-transform:uppercase}
+.tool-col ul{list-style:none}
+.tool-col li{padding:9px 6px;font-size:.92rem;color:var(--ink);border-bottom:1px dashed rgba(17,18,16,.18);transition:transform .25s ease,background .25s ease,padding-left .25s ease,filter .25s ease;transform-origin:left center;cursor:default;filter:blur(3px)}
+.tool-col li::before{content:"▸ ";color:var(--red-deep);transition:.25s}
+.tool-col li:hover{transform:scale(1.07);background:rgba(255,59,48,.07);padding-left:14px;filter:blur(0)}
+.tool-col li:hover::before{content:"► ";color:var(--red)}
+.tool-col li:last-child{border:none}
+.tool-col li.etc{color:#8a8c85}
+
+/* research: custom cursor + scaling rows + large grid */
+#science{cursor:none;background-image:linear-gradient(rgba(242,240,233,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(242,240,233,.05) 1px,transparent 1px);background-size:130px 130px}
+#science a{cursor:none}
+#cur{position:fixed;z-index:120;pointer-events:none;width:120px;height:120px;margin:-60px 0 0 -60px;display:none}
+#cur::before{content:"";position:absolute;inset:28px;border:1.5px solid var(--red)}
+#cur::after{content:"";position:absolute;inset:18px;background:linear-gradient(var(--red),var(--red)) center/100% 1.5px no-repeat,linear-gradient(var(--red),var(--red)) center/1.5px 100% no-repeat}
+#curline{position:fixed;top:0;bottom:0;width:1px;background:rgba(255,59,48,.32);z-index:119;pointer-events:none;display:none}
+#curglow{position:fixed;width:280px;height:280px;margin:-140px 0 0 -140px;border-radius:50%;background:radial-gradient(circle,rgba(255,59,48,.15),transparent 65%);z-index:118;pointer-events:none;display:none}
+#science .rows .row{transition:transform .25s ease,border-color .25s ease;transform-origin:left center;padding-left:6px;padding-right:6px}
+#science .rows .row:hover{transform:scale(1.02)}
+
+/* certs scatter (light) */
+.certs{display:grid;grid-template-columns:repeat(4,1fr);gap:34px 28px;width:calc(100vw - 48px);margin-left:calc(50% - 50vw + 24px)}
+@media(max-width:1500px){.certs{grid-template-columns:repeat(3,1fr)}}
+.certcard{display:block;background:#fff;padding:8px 8px 10px;box-shadow:0 12px 30px rgba(17,18,16,.18);transition:transform .3s ease,box-shadow .3s ease;position:relative}
+.certcard:nth-child(4n+1){transform:rotate(-2.2deg)}
+.certcard:nth-child(4n+2){transform:rotate(1.8deg) translateY(10px)}
+.certcard:nth-child(4n+3){transform:rotate(-1.2deg) translateY(-4px)}
+.certcard:nth-child(4n){transform:rotate(2.4deg) translateY(6px)}
+.certcard:hover{transform:rotate(0) scale(1.06);z-index:3;box-shadow:0 26px 56px rgba(17,18,16,.3)}
+.certcard img{display:block;width:100%;filter:grayscale(1) contrast(1.02);transition:filter .3s ease}
+.certcard:hover img{filter:grayscale(0)}
+.certcard .t{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);padding:8px 2px 0;font-weight:700}
+
+/* claude academy badge (CSS reproduction) */
+.acad{position:relative;aspect-ratio:1100/799;background:#c96442;display:flex;align-items:center;justify-content:center;filter:grayscale(1);transition:filter .3s ease;overflow:hidden}
+.certcard:hover .acad{filter:grayscale(0)}
+.acad .deca{width:72%;aspect-ratio:1/0.96;background:#f2d7c4;clip-path:polygon(50% 0%,79% 9%,98% 33%,98% 66%,79% 91%,50% 100%,21% 91%,2% 66%,2% 33%,21% 9%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#1d1a17;padding:8%}
+.acad .deca .arc{font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;color:#c96442;margin-bottom:6px}
+.acad .deca .name{font-size:clamp(1rem,2.4vw,1.6rem);font-weight:800;letter-spacing:0}
+.acad .deca .to{font-size:.58rem;margin-top:8px;color:#4c4038}
+.acad .deca .who{font-size:.8rem;font-weight:700}
+.acad .foot{position:absolute;left:6%;bottom:5%;color:#f2d7c4;font-size:.6rem;font-weight:700;letter-spacing:.04em}
+.acad .issued{position:absolute;right:6%;bottom:5%;color:#f2d7c4;font-size:.48rem;letter-spacing:.14em;text-transform:uppercase}
+
+/* section alt spacing */
+.endline{padding:34px 0;text-align:center;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--line-soft)}
+
+@media(max-width:900px){
+  body{padding-top:58px}
+  .topbar{height:56px}
+  #progress{top:56px}
+  .hero-grid{grid-template-columns:1fr}
+  .polaroid{max-width:300px}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .stat{border-left:0;border-top:1px solid var(--line-soft)}
+  .grid,.tools,.x-scatter{grid-template-columns:1fr}
+  .collage,.certs{grid-template-columns:1fr 1fr}
+  .rows .row{flex-direction:column;gap:2px}
+  .row .right{white-space:normal}
+  #science{cursor:auto}
+}
+@media(max-width:560px){.collage,.certs{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<canvas id="dots"></canvas>
+
+<div class="topbar">
+  <div><b>MYKHAILO YATSENKO</b></div>
+  <a class="tg" href="https://t.me/mykhailus">Telegram → @mykhailus</a>
+</div>
+<div id="progress"></div>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="kicker">AI VIDEO / GENERATIVE CONTENT / PRODUCTION</div>
+      <h1 class="scramble">Mykhailo Yatsenko<br><span class="accent">{ai creator}</span></h1>
+      <p class="tagline">AI video &amp; generative content backed by <b>15+ years of professional production</b> — VFX, 3D, motion design.<br>Client work for <b>Sony Music, AT&amp;T, Autodesk</b>. 10 years in crypto.</p>
+      <div class="contacts">
+        <a class="chip primary" href="https://t.me/mykhailus">Telegram → @mykhailus</a>
+        <a class="chip" href="https://www.linkedin.com/in/mykhailus/">LinkedIn</a>
+        <a class="chip" href="https://x.com/MykhailYatsenko">X</a>
+        <a class="chip" href="https://github.com/mykhailus">GitHub</a>
+        <a class="chip" href="https://www.artstation.com/goodjob1">ArtStation</a>
+      </div>
+    </div>
+    <div class="polaroid">
+      <div class="ph"><img src="photo.jpg" alt="Mykhailo Yatsenko"></div>
+      <div class="cap">mykhailus</div>
+    </div>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="wrap stats-grid">
+    <div class="stat"><b><span class="count" data-n="195">0</span>M</b><span>views — my most-watched animation</span></div>
+    <div class="stat"><b><span class="count" data-n="3.6">0</span>M</b><span>views — Lil Nas X trailer for Sony Music</span></div>
+    <div class="stat"><b><span class="count" data-n="2.6">0</span>M</b><span>impressions on my AI-content X channel</span></div>
+    <div class="stat"><b><span class="count" data-n="15">0</span>+</b><span>years in video production &amp; VFX</span></div>
+    <div class="stat"><b><span class="count" data-n="10">0</span>+</b><span>years in crypto</span></div>
+  </div>
+</div>
+
+<div class="marquee"><div class="marquee-track"><span class="half" id="mqhalf">CLAUDE CODE <span class="r">·</span> VEO <span class="r">·</span> OMNI <span class="r">·</span> SEEDANCE <span class="r">·</span> MIDJOURNEY <span class="r">·</span> GEMINI <span class="r">·</span> HEDRA <span class="r">·</span> ELEVENLABS <span class="r">·</span> AFTER EFFECTS <span class="r">·</span> MAYA + REDSHIFT <span class="r">·</span> UNREAL ENGINE <span class="r">·</span> 3DS MAX <span class="r">·</span> </span></div></div>
+
+<section id="ai">
+  <div class="wrap">
+    <div class="kicker rv">01 / AI CREATIVE WORK</div>
+    <h2 class="rv scramble">Generative video &amp; AI content</h2>
+
+    <div class="rows rv">
+      <div class="row">
+        <div><h3><a href="https://x.com/EricaNister">X channel @EricaNister</a></h3>
+        <p>Full cycle: strategy, scripts, AI video, graphics, n8n + AI automation. Every video on the channel is generated by me.</p></div>
+        <div class="right">2.6M impressions · 186K engagements · 76K likes</div>
+      </div>
+      <div class="row">
+        <div><h3><a href="https://x.com/boomdaosns">X channel @boomdaosns</a></h3>
+        <p>Complete AI content production for BoomDAO: video, imagery, motion — every asset on the channel is my work.</p></div>
+        <div class="right">5.6K followers · 830+ posts</div>
+      </div>
+    </div>
+
+    <div class="x-scatter rv">
+      <div class="x-item"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true"><a href="https://x.com/EricaNister/status/1947205124998214001">Watch on X →</a></blockquote></div>
+      <div class="x-item"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true"><a href="https://x.com/EricaNister/status/1986863901192130928">Watch on X →</a></blockquote></div>
+      <div class="x-item"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true"><a href="https://x.com/vizmotor/status/1537501807387238400">Watch on X →</a></blockquote></div>
+      <div class="x-item"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true"><a href="https://x.com/EricaNister/status/2010290841542373550">Watch on X →</a></blockquote></div>
+      <div class="x-item"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true"><a href="https://x.com/EricaNister/status/2008208871350055240">Watch on X →</a></blockquote></div>
+      <div class="x-item"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true"><a href="https://x.com/vizmotor/status/1552727480359854081">Watch on X →</a></blockquote></div>
+      <div class="x-item"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true"><a href="https://x.com/EricaNister/status/1987414857881174115">Watch on X →</a></blockquote></div>
+      <div class="x-item"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true"><a href="https://x.com/EricaNister/status/1986327696255681011">Watch on X →</a></blockquote></div>
+    </div>
+  </div>
+</section>
+
+<section id="production" class="light">
+  <div class="wrap">
+    <div class="kicker rv">02 / PRODUCTION BACKGROUND</div>
+    <h2 class="rv scramble">Client work: Sony Music, AT&amp;T, Autodesk</h2>
+    <div class="grid rv">
+      <div class="card">
+        <div class="yt" data-id="DsGvkftHHzE"><img loading="lazy" src="https://i.ytimg.com/vi/DsGvkftHHzE/hqdefault.jpg" alt="195M views animation"><div class="play"><i></i></div></div>
+        <div class="body"><span class="badge">195M views</span>
+          <h3>My most-watched work</h3>
+          <p>An animated short I conceived and produced entirely on my own — the most-viewed piece of my career.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="yt" data-id="0A_e8rKlbKA"><img loading="lazy" src="https://i.ytimg.com/vi/0A_e8rKlbKA/hqdefault.jpg" alt="Lil Nas X trailer"><div class="play"><i></i></div></div>
+        <div class="body"><span class="badge">3.6M views · Sony Music</span>
+          <h3>Lil Nas X — MONTERO album trailer</h3>
+          <p>Commissioned by Sony Music Entertainment. Produced solo in Cinema 4D + After Effects.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="yt" data-id="0En6XOqXTMY"><img loading="lazy" src="https://i.ytimg.com/vi/0En6XOqXTMY/hqdefault.jpg" alt="Fitz and the Tantrums"><div class="play"><i></i></div></div>
+        <div class="body"><span class="badge">1.5M views · Music video</span>
+          <h3>Fitz and the Tantrums — Head Up High</h3>
+          <p>Rotoscoping, edit, titles, rendering — Maya + Redshift, Unreal Engine.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="yt" data-id="jWU1jn6EJ2E"><img loading="lazy" src="https://i.ytimg.com/vi/jWU1jn6EJ2E/hqdefault.jpg" alt="Angel Baby episode 7"><div class="play"><i></i></div></div>
+        <div class="body"><span class="badge">4.4M views · Animated series</span>
+          <h3>Angel Baby — Night Tale (ep. 7)</h3>
+          <p>Episode of the 3D animated series — rendering.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="yt" data-id="CgQNB7NrPS8"><img loading="lazy" src="https://i.ytimg.com/vi/CgQNB7NrPS8/hqdefault.jpg" alt="AT&T CTIA"><div class="play"><i></i></div></div>
+        <div class="body"><span class="badge">AT&amp;T</span>
+          <h3>AT&amp;T Mobility at CTIA</h3>
+          <p>Multi-screen video wall content rendered in Maya (<a href="https://youtu.be/w8RCSkJ3Wak">booth walkthrough</a>).</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="yt" data-id="ShSsbuSm4os"><img loading="lazy" src="https://i.ytimg.com/vi/ShSsbuSm4os/hqdefault.jpg" alt="Angel Baby episode 12"><div class="play"><i></i></div></div>
+        <div class="body"><span class="badge">3.7M views · Animated series</span>
+          <h3>Angel Baby — Alle-Up (ep. 12)</h3>
+          <p>Episode of the 3D animated series — rendering.</p>
+        </div>
+      </div>
+    </div>
+    <p class="rv" style="margin-top:24px;font-size:.8rem;letter-spacing:.06em">SINCE 2010 — RENDER ARTIST, VFX &amp; AR/VR DEVELOPMENT AT <a href="https://vizmotor.com/team/">VIZMOTOR STUDIO</a></p>
+  </div>
+</section>
+
+<section id="crypto">
+  <div class="wrap">
+    <div class="kicker rv">03 / CRYPTO</div>
+    <h2 class="rv scramble">Ten years inside crypto</h2>
+    <div class="rows rv">
+      <div class="row">
+        <div><h3>Aergo ambassador</h3>
+        <p>Best on-chain detective of that blockchain — tracked every OTC deal down to genesis.</p></div>
+        <div class="right">since 2016 in crypto</div>
+      </div>
+      <div class="row" style="border-bottom:none">
+        <div><h3><a href="https://entrepot.app/marketplace/moonwalkers">NFT creator</a></h3>
+        <p>Moonwalkers — the first collection where every token is an image + a Maya-animated video rendered in Unreal + an AR-ready 3D model (basis for a 400K ICP raise).<br>Singularity Time — the first-ever 3D NFT animated series.</p></div>
+        <div class="right">2 collections on Internet Computer</div>
+      </div>
+    </div>
+    <div class="nftblock rv">
+      <div class="nftgrid">
+        <a class="shot" href="https://entrepot.app/marketplace/moonwalkers">
+          <img loading="lazy" src="moonwalkers.jpg" alt="Moonwalkers NFT collection">
+          <div class="t">Moonwalkers</div>
+          <div class="m">10,000 × 3 formats: image + video + AR-ready 3D</div>
+        </a>
+        <a class="shot" href="https://entrepot.app/marketplace/singularity-time">
+          <img loading="lazy" src="nft-singularity.webp" alt="Singularity Time NFT collection">
+          <div class="t">Singularity Time</div>
+          <div class="m">first-ever 3D NFT animated series</div>
+        </a>
+      </div>
+    </div>
+    <div class="rows rv noline">
+      <div class="row">
+        <div><h3><a href="https://incrypted.com/en/author/mykhailoyatsenko/">Lead AI analyst at Incrypted</a></h3>
+        <p>The largest crypto media in Eastern Europe.<br>60+ articles in 8 languages (EN / UA / RU / PL / IT / TR / ES / HI).</p></div>
+        <div class="right">60+ articles · 8 languages</div>
+      </div>
+    </div>
+    <div class="collage rv">
+      <a class="shot" href="https://incrypted.com/en/complete-guide-claude/">
+        <img loading="lazy" src="art-claude.jpg" alt="Claude guide">
+        <div class="t">Claude Guide: How Anthropic's AI Works With Code and Text</div>
+        <div class="m">9.6K views</div>
+      </a>
+      <a class="shot" href="https://incrypted.com/en/google-antigravity-guide-agentic-development-environment/">
+        <img loading="lazy" src="art-antigravity.jpg" alt="Google Antigravity article">
+        <div class="t">Google Antigravity: A Guide to the Agentic Development Environment</div>
+        <div class="m">4.9K views</div>
+      </a>
+      <a class="shot" href="https://incrypted.com/en/first-public-mythos-class-model-under-testing/">
+        <img loading="lazy" src="art-fable.jpg" alt="Claude Fable 5 article">
+        <div class="t">Claude Fable 5: Testing the First Public Mythos-Class Model</div>
+        <div class="m">2.6K views</div>
+      </a>
+      <a class="shot" href="https://incrypted.com/en/guide-using-gemini-3-6-flash/">
+        <img loading="lazy" src="art-gemini.jpg" alt="Gemini guide">
+        <div class="t">Step-by-Step Guide to Using Gemini 3.6 Flash</div>
+        <div class="m">1.4K views</div>
+      </a>
+      <a class="shot" href="https://incrypted.com/en/how-connect-blender-3d-claude/">
+        <img loading="lazy" src="art-blender.jpg" alt="Blender + Claude article">
+        <div class="t">How to Connect Blender 3D to Claude: A Comprehensive Guide</div>
+        <div class="m">2K views</div>
+      </a>
+      <a class="shot" href="https://incrypted.com/en/how-use-gemini-notebook/">
+        <img loading="lazy" src="art-notebook.jpg" alt="Gemini Notebook article">
+        <div class="t">Gemini Notebook: AI as a Personal Assistant for Study and Work</div>
+        <div class="m">4.1K views</div>
+      </a>
+      <a class="shot" href="https://incrypted.com/en/ai-can-doubt-testing-claude-opus-4-8/">
+        <img loading="lazy" src="art-opus.jpg" alt="Claude Opus 4.8 article">
+        <div class="t">The AI That Can Doubt: Testing Claude Opus 4.8</div>
+        <div class="m">1.3K views</div>
+      </a>
+      <a class="shot" href="https://incrypted.com/en/top-neural-networks-creating-ai-avatar/">
+        <img loading="lazy" src="art-avatar.jpg" alt="AI avatars article">
+        <div class="t">7 AI Tools for Creating Flawless Avatars in Minutes</div>
+        <div class="m">1.1K views</div>
+      </a>
+      <a class="shot" href="https://incrypted.com/en/qwen3-8-max-review/">
+        <img loading="lazy" src="art-qwen.jpg" alt="Qwen review">
+        <div class="t">Qwen3.8-Max vs. GPT-5.6 Sol: The New Market Leader "Killer"</div>
+        <div class="m">1.3K views</div>
+      </a>
+      <a class="shot" href="https://incrypted.com/en/how-create-video-googles-veo-31/">
+        <img loading="lazy" src="art-veo.jpg" alt="Veo 3.1 article">
+        <div class="t">Google's Veo 3.1: A Guide to Video Generation</div>
+        <div class="m">2.8K views</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="tools" class="light">
+  <div class="wrap">
+    <div class="kicker rv">04 / TOOLBOX</div>
+    <h2 class="rv scramble">AI stack + real post-production</h2>
+    <div class="tools rv">
+      <div class="tool-col">
+        <h3>AI Generation</h3>
+        <ul>
+          <li>Claude Code</li>
+          <li>Veo</li>
+          <li>Omni</li>
+          <li>Seedance</li>
+          <li>Midjourney</li>
+          <li>Gemini</li>
+          <li>Hedra</li>
+          <li>ElevenLabs</li>
+          <li class="etc">etc</li>
+        </ul>
+      </div>
+      <div class="tool-col">
+        <h3>Production &amp; CG</h3>
+        <ul>
+          <li>Maya + Redshift</li>
+          <li>Unreal Engine</li>
+          <li>After Effects · Mocha</li>
+          <li>3ds Max</li>
+          <li class="etc">etc</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="science">
+  <div class="wrap">
+    <div class="kicker rv">05 / RESEARCH &amp; RECOGNITION</div>
+    <h2 class="rv scramble">I don't just use AI — I research it</h2>
+    <div class="rows rv">
+      <div class="row">
+        <div><h3>PhD candidate in AI</h3><p>Researching pedagogical conditions for training educators to use AI. MSc in Computer Science (Intelligent Decision-Making Systems).</p></div>
+        <div class="right">2024 — present</div>
+      </div>
+      <div class="row">
+        <div><h3>Gold medal — "Modern Educational Institutions 2026"</h3><p>17th International Exhibition, National Academy of Educational Sciences of Ukraine — for applying modern technologies in education.</p></div>
+        <div class="right">March 2026</div>
+      </div>
+      <div class="row">
+        <div><h3><a href="https://visnyk.idgu.edu.ua/index.php/nv/issue/view/39/35">Paper — Scientific Bulletin of Izmail State University of Humanities</a></h3><p>Peer-reviewed publication on AI in education, issue 39.</p></div>
+        <div class="right">2024</div>
+      </div>
+      <div class="row">
+        <div><h3><a href="https://mans.edu.pl/fcp/iOEUfFzs9BjEkLTg1Y1BSe0N_YAVTHwIIOgIaTAIABCRvRQMEOjBBaHICPXNtSBk6PjIyBV4RBDYnD1cYTk8cOjYCEg/2/public/wydawnictwa/zbior_materialow_x_mknp_czesc_2_biala_cerkiew-lomza_2025_compressed-1.pdf">Paper — X International Scientific Conference proceedings, MANS (PDF)</a></h3><p>Peer-reviewed publication on AI in education, Biała Cerkiew–Łomża.</p></div>
+        <div class="right">2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certs" class="light">
+  <div class="wrap">
+    <div class="kicker rv">06 / CERTIFICATIONS</div>
+    <h2 class="rv scramble">Verified credentials</h2>
+    <div class="certs rv">
+      <a class="certcard" href="https://academy.claude.com/verify/bd032018297e2f770e387357567c8bb4">
+        <div class="acad">
+          <div class="deca">
+            <div class="arc">Course Completion Badge</div>
+            <div class="name">Claude 101</div>
+            <div class="to">Presented to</div>
+            <div class="who">Миша</div>
+          </div>
+          <div class="foot">✳ Claude Academy</div>
+          <div class="issued">Issued August 22, 2026</div>
+        </div>
+        <div class="t">Claude Academy — Claude 101 · verified badge</div>
+      </a>
+      <a class="certcard" href="https://verify.skilljar.com/c/yma5r3pyobh3"><img loading="lazy" src="cert-claude101.jpg" alt="Anthropic — Claude 101"><div class="t">Anthropic — Claude 101 · verified</div></a>
+      <a class="certcard" href="https://verify.skilljar.com/c/r3gy6znt7p8f"><img loading="lazy" src="cert-code101.jpg" alt="Anthropic — Claude Code 101"><div class="t">Anthropic — Claude Code 101 · verified</div></a>
+      <a class="certcard" href="https://verify.skilljar.com/c/deagdp376sje"><img loading="lazy" src="cert-cowork.jpg" alt="Anthropic — Introduction to Claude Cowork"><div class="t">Anthropic — Claude Cowork · verified</div></a>
+      <div class="certcard"><img loading="lazy" src="cert-aim-s1.jpg" alt="AI Mindset — S1 Sprint Personal OS"><div class="t">AI Mindset — S1 Sprint · Personal OS</div></div>
+      <div class="certcard"><img loading="lazy" src="cert-aim-s2.jpg" alt="AI Mindset — S2 Sprint AI-Native Organizations"><div class="t">AI Mindset — S2 Sprint · AI-Native Organizations</div></div>
+      <div class="certcard"><img loading="lazy" src="cert-aim-s3.jpg" alt="AI Mindset — S3 Sprint AI-Native Organizations"><div class="t">AI Mindset — S3 Sprint · AI-Native Organizations</div></div>
+      <a class="certcard" href="https://learn.aimindset.org/x26"><img loading="lazy" src="cert-aim-x26.jpg" alt="AI Mindset — X26 Spring Lab BLOOM"><div class="t">AI Mindset — X26 Spring Lab {BLOOM} · AI-Native Creative</div></a>
+    </div>
+  </div>
+</section>
+
+<div class="endline">© 2026 MYKHAILO YATSENKO</div>
+<div id="curglow"></div><div id="curline"></div><div id="cur"></div>
+
+<script>
+/* page-wide interactive red dot cloud */
+(function(){
+  const c=document.getElementById('dots'),x=c.getContext('2d');
+  let W,H,pts=[],mx=-9999,my=-9999;
+  const DPR=Math.min(2,devicePixelRatio||1);
+  function size(){
+    W=c.width=innerWidth*DPR;H=c.height=innerHeight*DPR;
+    c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';
+    pts=[];const n=Math.min(150,Math.floor(innerWidth*innerHeight/14000));
+    for(let i=0;i<n;i++){
+      const hx=Math.random()*W,hy=Math.random()*H;
+      pts.push({hx,hy,x:hx,y:hy,vx:0,vy:0,ph:Math.random()*6.28,r:(Math.random()<.15?2.2:1.4)*DPR});
+    }
+  }
+  size();addEventListener('resize',size);
+  addEventListener('mousemove',e=>{mx=e.clientX*DPR;my=e.clientY*DPR},{passive:true});
+  addEventListener('mouseout',e=>{if(!e.relatedTarget){mx=my=-9999}});
+  let t=0;
+  (function tick(){
+    t+=.008;
+    x.clearRect(0,0,W,H);
+    const R=110*DPR;
+    for(const p of pts){
+      const tx=p.hx+Math.cos(t*2+p.ph)*8*DPR, ty=p.hy+Math.sin(t*1.6+p.ph)*8*DPR;
+      let dx=p.x-mx,dy=p.y-my;const d=Math.hypot(dx,dy);
+      if(d<R){const f=(R-d)/R;p.vx+=dx/d*f*1.6;p.vy+=dy/d*f*1.6;}
+      p.vx+=(tx-p.x)*.02;p.vy+=(ty-p.y)*.02;
+      p.vx*=.88;p.vy*=.88;
+      p.x+=p.vx;p.y+=p.vy;
+    }
+    x.strokeStyle='rgba(255,59,48,.10)';x.lineWidth=1;
+    const LINK=90*DPR;
+    for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+      const a=pts[i],b=pts[j],dx=a.x-b.x,dy=a.y-b.y;
+      if(Math.abs(dx)<LINK&&Math.abs(dy)<LINK){
+        const d=Math.hypot(dx,dy);
+        if(d<LINK){x.globalAlpha=1-d/LINK;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke();}
+      }
+    }
+    x.globalAlpha=1;
+    for(const p of pts){x.fillStyle='rgba(255,59,48,.55)';x.beginPath();x.arc(p.x,p.y,p.r,0,6.29);x.fill();}
+    requestAnimationFrame(tick);
+  })();
+})();
+
+/* scroll progress */
+const pr=document.getElementById('progress');
+addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  pr.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+},{passive:true});
+
+/* reveal on scroll */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+/* scramble headings */
+const CH='!<>-_\\/[]{}—=+*^?#01';
+function scramble(el){
+  const nodes=[];(function walk(n){n.childNodes.forEach(c=>{if(c.nodeType===3)nodes.push(c);else walk(c)})})(el);
+  nodes.forEach(node=>{
+    const orig=node.textContent;let f=0;const total=Math.max(10,orig.length*1.4);
+    (function step(){
+      f++;const prog=f/total;
+      node.textContent=orig.split('').map((ch,i)=>{
+        if(ch===' ')return ch;
+        return i/orig.length<prog?ch:CH[Math.floor(Math.random()*CH.length)];
+      }).join('');
+      if(prog<1)requestAnimationFrame(step);else node.textContent=orig;
+    })();
+  });
+}
+const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){scramble(e.target);so.unobserve(e.target)}}),{threshold:.4});
+document.querySelectorAll('.scramble').forEach(el=>so.observe(el));
+
+/* count-up stats */
+const co=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;co.unobserve(e.target);
+  const el=e.target,n=parseFloat(el.dataset.n),dec=el.dataset.n.includes('.')?1:0,t0=performance.now();
+  (function step(t){
+    const p=Math.min(1,(t-t0)/1100),v=n*(1-Math.pow(1-p,3));
+    el.textContent=v.toFixed(dec);
+    if(p<1)requestAnimationFrame(step);else el.textContent=n.toFixed(dec);
+  })(t0);
+}),{threshold:.6});
+document.querySelectorAll('.count').forEach(el=>co.observe(el));
+
+/* lite youtube: embed on http(s), open on youtube otherwise */
+document.querySelectorAll('.yt').forEach(el=>{
+  el.addEventListener('click',()=>{
+    if(location.protocol==='http:'||location.protocol==='https:'){
+      if(el.querySelector('iframe'))return;
+      const f=document.createElement('iframe');
+      f.src='https://www.youtube-nocookie.com/embed/'+el.dataset.id+'?autoplay=1&rel=0';
+      f.allow='autoplay; encrypted-media; picture-in-picture';f.allowFullscreen=true;
+      f.referrerPolicy='strict-origin-when-cross-origin';
+      el.appendChild(f);
+    }else{
+      window.open('https://www.youtube.com/watch?v='+el.dataset.id,'_blank');
+    }
+  });
+});
+
+/* research custom cursor: square + long vertical hairline + red glow */
+(function(){
+  const cur=document.getElementById('cur'),line=document.getElementById('curline'),glow=document.getElementById('curglow'),sec=document.getElementById('science');
+  if(matchMedia('(pointer:fine)').matches){
+    sec.addEventListener('mousemove',e=>{
+      cur.style.display=line.style.display=glow.style.display='block';
+      cur.style.left=glow.style.left=line.style.left=e.clientX+'px';
+      cur.style.top=glow.style.top=e.clientY+'px';
+      const r=sec.getBoundingClientRect();
+      line.style.top=Math.max(0,r.top)+'px';
+      line.style.bottom=Math.max(0,innerHeight-r.bottom)+'px';
+    });
+    sec.addEventListener('mouseleave',()=>{cur.style.display=line.style.display=glow.style.display='none'});
+  }
+})();
+
+/* seamless marquee: clone half */
+(function(){
+  const half=document.getElementById('mqhalf');
+  half.innerHTML=half.innerHTML.repeat(3);
+  half.parentElement.appendChild(half.cloneNode(true));
+})();
+</script>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</body>
+</html>
